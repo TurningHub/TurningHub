@@ -130,14 +130,13 @@
 
   - 当想重新查看该方法体的执行过程时，不用重新启动Debug，可以使用回退断点方式。
 
-
 该技巧最适合特别复杂的方法套方法的场景，好不容易跑起来，一不小心手一抖，断点过去了，想回过头看看刚才的变量值，如果不知道该技巧，只能再跑一遍。
 
-<img src="C:/Users/JiachengSong/Desktop/最新笔记/Debug/Debug.assets/image-20201012001934778.png" alt="image-20201012001934778" style="zoom: 33%;" /> 
+<img src="images/image-20201012001934778.png" style="zoom:50%;" /> 
 
 参考上图，`method1`方法调用`method2`，当前断点的位置`j=100`，点击上图红色箭头位置的`Drop Frame`图标后，时间穿越了
 
-<img src="C:/Users/JiachengSong/Desktop/最新笔记/Debug/Debug.assets/image-20201012002024852.png" alt="image-20201012002024852" style="zoom:33%;" /> 
+<img src="images/image-20201012002024852.png" style="zoom:50%;" /> 
 
 回到了`method1`刚开始调用的时候，变量`i`变成了`99`，没毛病吧，老铁们，是不是很6
 
@@ -193,7 +192,7 @@
 
   - 一般在执行语句的下一行，因为执行完语句才有值，一般将断点打在目标行的下一行
 
-    <img src="C:/Users/JiachengSong/Desktop/最新笔记/Debug/Debug.assets/2019-10-03_182101.jpg" style="zoom:67%;" /> 
+    <img src="images/2019-10-03_182101.jpg" style="zoom:67%;" /> 
 
 - 作用
 
@@ -207,29 +206,29 @@
 
   + 多线程调试，需要调整断点挂起级别为Thread
 
-    <img src="C:/Users/JiachengSong/Desktop/最新笔记/Debug/Debug.assets/2019-10-05_164127.jpg" style="zoom:67%;" /> 
+    <img src="images/2019-10-05_164127.jpg" style="zoom:67%;" /> 
 
   + Frame中选择线程进行调试
 
 多线程同时运行时，谁先执行，谁后执行，完全是看CPU心情的，无法控制先后，运行时可能没什么问题，但是调试时就比较麻烦了，最明显的就是断点乱跳，一会儿停这个线程，一会儿停在另一个线程，比如下图：
 
-<img src="C:/Users/JiachengSong/Desktop/最新笔记/Debug/Debug.assets/image-20201012002313865.png" alt="image-20201012002313865" style="zoom:67%;" /> 
+![](images/image-20201012002313865.png)  
 
 如果想希望下一个断点位置是第2句诗句，可能要失望了：
 
-<img src="C:/Users/JiachengSong/Desktop/最新笔记/Debug/Debug.assets/image-20201012002348602.png" alt="image-20201012002348602" style="zoom:67%;" /> 
+![](images/image-20201012002348602.png) 
 
 如果想让线程在调试时，想按自己的愿意来，让它停在哪个线程就停在哪个线程，需要调整断点挂起级别为Thread，可以在3个断点的小红点上右击：
 
-<img src="C:/Users/JiachengSong/Desktop/最新笔记/Debug/Debug.assets/image-20201012002457390.png" alt="image-20201012002457390" style="zoom:67%;" /> 
+![](images/image-20201012002457390.png)  
 
 即：`Suspend`挂起的条件是按每个线程来，而非`All`。把这3个断点都这么设置后，再来一发试试
 
-<img src="C:/Users/JiachengSong/Desktop/最新笔记/Debug/Debug.assets/image-20201012002531366.png" alt="image-20201012002531366" style="zoom:67%;" /> 
+![](images/image-20201012002531366.png)   
 
 注意上图中的红框位置，断点停下来时，这个下拉框可以看到各个线程（注：给线程起个容易识别的名字是个好习惯！），我们可以选择线程“天空中的飞鸟”
 
-<img src="C:/Users/JiachengSong/Desktop/最新笔记/Debug/Debug.assets/image-20201012002624007.png" alt="image-20201012002624007" style="zoom:67%;" /> 
+<img src="images/image-20210216122824397.png" alt="image-20210216122824397" style="zoom: 80%;" /> 
 
 断点如愿停在了第2句诗。
 
