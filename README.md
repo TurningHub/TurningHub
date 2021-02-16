@@ -99,7 +99,7 @@
 - 添加Tomcat
 - 关联数据库
 - Maven配置
-- Debug
+- [Debug](docs/Tools/IDEA/Debug/Debug.md) 
 - 版本控制集成
 
 ### DataGrip
