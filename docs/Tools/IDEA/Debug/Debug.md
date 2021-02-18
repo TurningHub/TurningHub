@@ -4,8 +4,8 @@
 <!-- code_chunk_output -->
 
 - [Debug](#debug)
-  - [01Debug简介和意义](#01Debug简介和意义)
-  - [02_IDEA中的Debug步骤](#02_IDEA中的Debug步骤)
+  - [01_Debug简介和意义](#01_debug简介和意义)
+  - [02_IDEA中的Debug步骤](#02_idea中的debug步骤)
   - [03_跳转到当前代码执行的行](#03_跳转到当前代码执行的行)
   - [04_步过调试的使用](#04_步过调试的使用)
   - [05_步入调试的使用](#05_步入调试的使用)
@@ -23,9 +23,11 @@
 <!-- /code_chunk_output -->
 
 
+
+
 # Debug
 
-## 01Debug简介和意义
+## 01_Debug简介和意义
 
 + 什么是程序 Debug ？
 
