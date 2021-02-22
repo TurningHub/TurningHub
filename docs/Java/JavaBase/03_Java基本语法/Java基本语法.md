@@ -304,9 +304,66 @@ boolean类型占用字节提问？
 
 转换时候注意，**int**是整数缺省值，**double**是浮点类型缺省值，标题是变量间转换，如果`byte a1 = 1;a1 + 1`就不能使用`byte`来接收。
 
+- `short s = 5;s = s -2;`不能通过编译
+- `byte b = 3; b = b + 4;`不能通过编译。`b = (byte)(b+4); `可以通过编译
+- `char c = ‘a’;int i = 5;float d = .314F;double result = c+i+d;`可以通过编译
+- ` byte b = 5;short s = 3;short t = s + b; `不能通过编译
+
 ### 基本数据类型与String间转换
 
+> String
 
+- `String`不是基本数据类型，属于引用数据类型，翻译为字符串
+
+- 声明`String`类型变量时，使用一对“”，使用方式与基本数据类型一致。例如：`String str = “abcd”;`
+- `String str = "";`编译通过，`char ch = '';`编译失败。
+- `String`类一旦创建出来就再也不能变了，他也没有提供`get/set`的方法
+- 为什么`String`是引用数据类型，但是使用的时候直接赋值呢？这就是`Java`给他开的后门，因为用到`String`的地方实在太多了，每次`new`很费时间
+- `String` 对象最重要的特点：不可变（`immutable`）不可变不可变，重要的事情说三遍。`String`用来存储字符的数据是 `private` 的，而且不提供任何修改内容的方法，所以`String` 对象一旦生成，其内容就是完全不可能被修改的
+
+```java
+String content = "01234567aAbBcCdD";
+
+// String的length()是个方法不是属性
+System.out.println("content.length() = " + content.length());
+
+// 其实是生成了一个新的String对象
+// 全部大写
+System.out.println(content.toUpperCase());
+// 全部小写
+System.out.println(content.toLowerCase());
+
+// content指向对象的内容并没有变化
+System.out.println(content); // 01234567aAbBcCdD
+```
+
+> String连接符运算
+
+- `String`可以和八种基本数据类型做运算，且运算只能是+连接运算，运算结果只能是`String`类型；
+- 一个字符串可以串接另一个字符串，也可以直接串接其他类型的数据。例如：`str = str + “xyz”; int n = 100; str = str + n;`
+
+```java
+char ch = 'a';
+int num = 10;
+String str = "hello";
+
+// 107hello
+System.out.println(ch + num + str);
+// ahello10
+System.out.println(ch + str + num);
+```
+
+> String与基本数据类型转换
+
+```java
+String str = 123;  // 编译不通过
+String str = 123 + ""; // 编译通过
+
+int num = str;	// 编译不通过
+int num = (int)str // 编译不通过
+    
+int num = Integer.parseInt(str); // 编译通过
+```
 
 ### 进制与进制间的转换
 
