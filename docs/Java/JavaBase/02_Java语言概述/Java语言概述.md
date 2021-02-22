@@ -154,6 +154,12 @@
 
 软件，即一系列按照特定顺序组织的计算机数据和指令的集合。有**系统软件**和**应用软件**之分。我们大部分的程序员在做的都是应用软件，系统软件开发难度较大，也非常来之不易，例如华为鸿蒙操作系统，难上加难，要预判好几年之后用户的习惯。
 
+系统软件：`windows` `mac` `Linux`  `Unix` `Android`  `ios`
+
+应用软件：`office` `WeChat`
+
+**应用程序 = 算法 + 数据结构**
+
 ### 人机交互方式
 
 图形化界面(**G**raphical **U**ser **I**nterface GUI)这种方式简单直观，使用者易于接受，容易上手操作。
@@ -531,8 +537,9 @@ Java中的注释类型：
 
 ## 13_Java API的文档
 
-1. API （Application Programming Interface,应用程序编程接口）是 Java 提供 的基本编程接口。
-2. Java语言提供了大量的基础类，因此 Oracle 也为这些基础类提供了相应的 API文档，用于告诉开发者如何使用这些类，以及这些类里包含的方法。
-3. 下载API：https://www.oracle.com/java/technologies/javase-downloads.html
+1. API （Application Programming Interface,应用程序编程接口）是 Java 提供的基本编程接口。习惯上将语言提供的类库都称为API
+2. API文档：针对于提供的类库如何使用给的一个说明书，类似于《新华字典》
+3. Java语言提供了大量的基础类，因此 Oracle 也为这些基础类提供了相应的 API文档，用于告诉开发者如何使用这些类，以及这些类里包含的方法。
+4. 下载API：https://www.oracle.com/java/technologies/javase-downloads.html
 
 ![image-20210220122410797](images/image-20210220122410797.png) 
