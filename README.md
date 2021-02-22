@@ -35,7 +35,7 @@
 
 - [编程入门](docs/Java/JavaBase/01_编程入门/编程入门.md) 
 - [Java语言概述](docs/Java/JavaBase/02_Java语言概述/Java语言概述.md) 
-- Java基本语法
+-  [Java基本语法](docs/Java/JavaBase/03_Java基本语法/Java基本语法.md) 
 - 数组
 - 面向对象编程
 - 异常处理
