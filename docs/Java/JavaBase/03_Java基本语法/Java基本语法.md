@@ -713,14 +713,86 @@ System.out.println(n);  // 32
 
 ### 逻辑运算符
 
-- &逻辑与 
-- | 逻辑或
-- ！逻辑非 
-- && 短路与 
-- || 短路或 
+- &逻辑与 。true & true是true , true & false是false。
+- | 逻辑或。true | false是true ,false | false是false,true | true是true。
+- ！逻辑非。！true是false , ！false是true。
+- && 短路与 **建议使用**
+- || 短路或 **建议使用**
 - ^ 逻辑异或
 
 ![image-20210223171001444](images/image-20210223171001444.png) 
+
+- “&”和“&&”的区别：
+  - 单&时，左边无论真假，右边都进行运算；
+  - 双&时，如果左边为真，右边参与运算，如果左边为假，那么右边不参与运算。
+  - “|”和“||”的区别同理，||表示：当左边为真，右边不参与运算。
+- 异或( ^ )与或( | )的不同之处是：当左右都为true时，结果为false。异或，追求的是“异”!
+  - a⊕b= a& (!b) || (!a) & b
+  - 同为0，异为1
+  - 0异或任何数=任何数
+  - 1异或任何数=任何数取反
+  - 任何数异或自己=把自己置0
+
+练习一：第一次还是太年轻，以为结果是1，1，殊不知已经做了运算
+
+```java
+int x = 1;
+int y = 1;
+if (x++ == 2 & ++y == 2) {
+    x = 7;
+}
+System.out.println("x=" + x + ",y=" + y);	// x=2,y=2
+```
+
+练习二：又大意了？？以为结果是2，2，`&&`在左边为`false`的情况下不会再对右边表达式做判断计算
+
+```java
+int x = 1, y = 1;
+if (x++ == 2 && ++y == 2) {
+    x = 7;
+}
+System.out.println("x=" + x + ",y=" + y);	// x=2,y=1
+```
+
+练习三：
+
+```java
+int x = 1, y = 1;
+if (x++ == 1 | ++y == 1) {
+    x = 7;
+}
+System.out.println("x=" + x + ",y=" + y);	// x=7,y=2
+```
+
+练习四：**后++先进行赋值，再自增**
+
+```java
+int x = 1, y = 1;
+if (x++ == 1 || ++y == 1) {
+    x = 7;
+}
+System.out.println("x=" + x + ",y=" + y);	// x=7,y=1
+```
+
+练习五：
+
+```java
+class Test {
+    public static void main (String [] args) {
+        boolean x = true;
+        boolean y = false;
+        short z = 42;
+        if ((z++ == 42) && (y = true)) {	// (z++ == 42)先比较后自增为true
+            z++;	// 44
+        }
+        if ((x = false) || (++z == 45)) {   // 先自增 45
+            z++;    // 46
+        }
+
+        System.out.println("z =" + z);	// 46
+    }
+}
+```
 
 ### 位运算符
 
