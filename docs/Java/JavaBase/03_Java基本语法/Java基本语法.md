@@ -796,6 +796,98 @@ class Test {
 
 ### 位运算符
 
+![image-20210223215418877](images/image-20210223215418877.png) 
+
+- 位运算是直接对整数的二进制进行的运算
+- 在一定范围内，`<<` 左移一位相当于 * 2
+- 在一定范围内，`>>`右移一位相当于 / 2
+- 经典面试题：最高效的方式计算2 * 8？ 2 << 3 或8 << 1
+- `>>>`：符号位一起右移，左边补0，又称无符号右移。也就是不管是正数还是负数，统一又移左补0。言外之意如果是负数，一下就变成了正数。可以看后面的代码。但是我们自己写代码的时候一般不用，`HashMap`的源码中似曾相识。后面学到集合的时候可以研究下。
+- **位运算符不会改变原变量的值**
+- 取反，包括符号位在内的各位取反。`~6 = -7`，`~-7 = 6`
+
+![image-20210223215645561](images/image-20210223215645561.png) 
+
+![image-20210223215706491](images/image-20210223215706491.png) 
+
+```java
+int a = 0x400;
+System.out.println("a = " + a);	 // 十六进制0x400 = 二进制0100 0000 0000 = 十进制1024
+
+// 符号位不动，其余位右移，符号位后面正数补0负数补1   
+System.out.println(a >> 1);// result = 512
+System.out.println(a >> 2);// result = 256
+System.out.println(a << 1);// result = 2048  位运算符不会改变原变量的值
+System.out.println(a << 2);// result = 4096
+
+int b = -0x400;  // 十六进制-0x400 = 二进制0001 0100 0000 0000 = 十进制-1024
+System.out.println("b = " + b);
+
+System.out.println(b >> 1);	// result = -512
+System.out.println(b >> 2);	// result = -256
+System.out.println(b << 1); // result = -2048
+System.out.println(b << 2); // result = -4096
+
+System.out.println(a >>> 1); // 512
+System.out.println(a >>> 2); // 256
+System.out.println(b >>> 1); // 2147483136
+System.out.println(b >>> 2); // 1073741568
+```
+
+> 位运算符的应用
+
+1、掩码（MASK）使用一个字节表示不同的身份
+
+```java
+int base = 1;// 基准数
+int isStudentMask = base;// 学生掩码 0001
+int isProgrammerMask = base  << 1;// 程序员掩码 0010
+int isDriverMask = base<< 2;// 司机掩码 0100
+int isPainterMask = base << 3;// 画家掩码 1000
+
+int data = 5;// 输入数据 0101
+boolean isStudent = (data & isStudentMask) != 0;//  0101 & 0001 = 0001 = 1是学生
+boolean isProgrammer = (data & isProgrammerMask) != 0;//  0101 & 0010 = 0000 = 0不是程序员
+boolean isDriver = (data & isDriverMask) != 0;//  0101 & 0100 = 0100 = 4是司机
+boolean isPainter = (data & isPainterMask) != 0;// 0101 & 1000 = 0000 = 不是画家
+```
+
+2、实现两个数字的交换
+
+在我们日后的开发中，不管是学习算法还是日常开发，都会接触到两个数的交换问题，例如给`1,5,4,2,3`这五个数字进行排序从小到大输出，你在对两个数字进行比较之后，肯定要交换位置，下面看看可是实现两数交换的几种方式
+
+- 采用中间变量的方法（推荐）：想想有一杯可乐、一杯雪碧、一个空杯子，你想把可乐和雪碧互换，也就是可乐桶装雪碧，雪碧桶装可乐
+
+  ```java
+  int num1 = 1;	// 可乐
+  int num2 = 2;	// 雪碧
+  int temp = num1; // 先把可乐倒入空杯子
+  num1 = num2;	 // 再把雪碧倒入可乐杯
+  num2 = temp;	 // 再把可乐倒入雪碧杯
+  ```
+
+- 利用亦或进行位操作，不借助中间变量的情况下，实现两个数字的交换。
+
+  ```java
+  // 1.异或有一出一：a异或b=a’b+ab’、a同或b=ab+a‘b’（a'为非a）
+  // 2.任何一个数字和自身异或均为0，和0异或不变，和1异或取反
+  第一步：x = x ^ y;
+  第二步：y = y ^ x = y ^ (x ^ y) = y ^ x ^ y = x ^ 0 =  x;
+  第三步：x = x ^ y = (x ^ y) ^ x = x ^ y ^ x = y ^ 0 = y;
+  ```
+
+- 采用加减法：好处是不用定义临时变量，缺点是相加操作可能超出存储范围，并且有局限性，只能适用于数值类型
+
+  ```java
+  int num1 = 1;	
+  int num2 = 2;	
+  num1 = num1 + num2; // 3
+  num2 = num1 - num2; // 1
+  num1 = num1 - num2; // 2
+  ```
+
+3、高效乘除2
+
 ### 三元运算符
 
 ## 05_程序流程控制
