@@ -713,6 +713,8 @@ System.out.println(n);  // 32
 
 ### 逻辑运算符
 
+- 逻辑运算符操作的都是布尔类型的变量，并且结果也是布尔类型
+
 - &逻辑与 。true & true是true , true & false是false。
 - | 逻辑或。true | false是true ,false | false是false,true | true是true。
 - ！逻辑非。！true是false , ！false是true。
@@ -799,11 +801,19 @@ class Test {
 ![image-20210223215418877](images/image-20210223215418877.png) 
 
 - 位运算是直接对整数的二进制进行的运算
+
 - 在一定范围内，`<<` 左移一位相当于 * 2
+
 - 在一定范围内，`>>`右移一位相当于 / 2
+
 - 经典面试题：最高效的方式计算2 * 8？ 2 << 3 或8 << 1
+
 - `>>>`：符号位一起右移，左边补0，又称无符号右移。也就是不管是正数还是负数，统一又移左补0。言外之意如果是负数，一下就变成了正数。可以看后面的代码。但是我们自己写代码的时候一般不用，`HashMap`的源码中似曾相识。后面学到集合的时候可以研究下。
+
+  有一种场景，就是不管是否对操作数除2，我只想让他右移不管高位，用这个。
+
 - **位运算符不会改变原变量的值**
+
 - 取反，包括符号位在内的各位取反。`~6 = -7`，`~-7 = 6`
 
 ![image-20210223215645561](images/image-20210223215645561.png) 
@@ -946,5 +956,323 @@ int max2 = (max1 > n3) ? max1 : n3;
 
 比较运算符比较的数是算数运算符算出来的。算出来我才能比较。
 
-## 05_程序流程控制
+### 扩展思路
+
+综上学习，感受一下编程之美
+
+问题：如何求一个0~255范围内的整数的十六进制，例如60的十六进制表示形式3C
+
+```java
+// 方式一:自动实现
+String str1 = Integer.toBinaryString(60);
+String str2 = Integer.toHexString(60);
+
+// 方式二:手动实现
+int i1 = 60;											// 定义要计算的数字
+int i2 = i1 & 15;										// 使用位运算符 & 15取出最后四位数(想想15的二进制是多少)
+String j = (i2 > 9) ? (char)(i2-10+'A')+":"i2+"";		// 使用三元运算符取出转换后的值
+int temp = i1 >>> 4;									// 单纯想右移取数使用无符号右移>>>
+i2 = temp & 15;
+String k = (i2 > 9) ? (char)(i2-10+'A')+":"i2+"";
+System.out.println(k+""+j);
+```
+
+## 05_认识熟悉的陌生人
+
+### 认识Scanner类
+
+如何从键盘获取不同类型的变量，需要使用`Scanner`类
+
+`Scanner`是一个方便的可以帮我们从标准输入读取并转换数据的类
+
+查看 `Scanner`的源代码和 `since`，理解 `public `带来的现实中的约束：
+
+注释里 `@since   1.5` 表示它是从`Java5`才开始有的。但是这并不是说从`Java5`开始，这个类就没有变化过了，在源代码里搜索一下`@since`，会发现很多方法是在后续的`Java`版本中加进去的，但是`private`方法就不会有这个文档标示，因为`private`方法本来就不给用。
+
+源码中很多方法是`private`，这样做的好处就是，用户假如`JDK5、JDK6、JDK7`用的方法是`public`，`JDK11`改成`private`就意味着无法使用，成员变量定义成`private`这是毋庸置疑的，并且提供`public`方法提供访问。方法层面使用`public`意味着我可以长期提供这样一个功能给别人，不需要改动和加减参数、返回值。自己内部操作用的话用`private`，将一些内部公用的方法抽出使用`private`修饰方法！ 
+
+```java
+// 1.导包import java.util.Scanner;
+// 2.Scanner的实例化
+// 3.调用Scanner类的相关方法,来获取指定类型的变量,输入类型不匹配会抛InputMismatchException异常
+```
+
+Scanner 里 nextInt 的小坑：https://xie.infoq.cn/article/59084d3e123889a4e7fd8f4ff
+
+### 认识main()方法
+
+**问题：为什么web项目没有main()方法？**
+
+`main`方法：你的`Java`程序要运行，总要有一个起点，所以我们就约定，从`main`方法这里开始一行一行执行，`Java`程序跑起来，一般是通过主类的`main`方法启动的。
+
+`web`容器是作为`web`程序的一部分存在的，由`web`容器启动你自己写的代码,像`void main()`之类的，测试的时候有时候会用到，其他基本不用。
+
+`tomcat`的主类是`BootStrap`类，也是以此类的`main`方法作为入口启动的,`web`项目部署到`tomcat`服务器之后，启动`tomcat`，`tomcat`从它自己的主函数开始运行，就一直在跑着，等到请求过来的时候。`tomcat`接受到请求，它直接从项目文件中把那个没有主函数的应用拉进来，就这么直截了当的执行了其中的方法。
+
+任何独立的程序都是从`Main`函数开始的，只是有些框架程序把入口给隐藏了，或者直接写到框架内部!这种情况你不用考虑！
+
+`Tomcat`：从启动到运行
+ 首先，我们是通过执行 `Tomcat`的`startup`的`Shell `脚本启动 `Tomcat `的，而在` Shell `脚本里，其实启动的是` JVM`。`Tomcat `启动以后，其实在操作系统里看到的是一个`JVM `进程。`JVM`进程启动以后，类加载器加载` class `进来执行，首先加载的就这个`org.apache.catalina.startup.Bootstrap`类，这个类里面有一个`main()`函数，是整个` Tomcat` 的入口函数，`JVM `虚拟机会启动一个主线程从这个入口函数开始执行。
+
+- main 方法也只是一个静态的，有 String[] 做参数的，没有返回值的方法而 已。它的特殊性在于 Java 可以把 main 方作为程序入口
+
+  ```java
+  public class LearnMain {
+      public static void main(String[] args) {
+          System.out.println("args = " + args);				// args = [Ljava.lang.String;@1b6d3586
+          System.out.println("args.length = " + args.length);	// args.length = 0
+      }
+  }
+  ```
+
+- 给 main 方法传递参数
+
+  在启动参数Program arguments：添加abc sjc "hello world"
+
+  ```java
+  public class LearnMain {
+      public static void main(String[] args) {
+          System.out.println("args = " + args);
+          System.out.println("args.length = " + args.length);
+          for (String arg : args) {
+              System.out.println(arg);
+          }
+      }
+  }
+  
+  args = [Ljava.lang.String;@1b6d3586
+  args.length = 3
+  abc
+  sjc
+  hello world
+  ```
+
+- 自己试着调用 main 方法
+
+  ```java
+  public class InvokeMain {
+      public static void main(String[] args) {
+          System.out.println("进入了InvokeMain的main方法");
+          LearnMain.main(args);
+          System.out.println("InvokeMain的main方法执行结束");
+      }
+  }
+  
+  进入了InvokeMain的main方法
+  args = [Ljava.lang.String;@1b6d3586
+  args.length = 1
+  hhh
+  InvokeMain的main方法执行结束
+  ```
+
+### 认识System类
+
+- `System `类中有很多和系统相关的方法。我们用的最多的就是 `in` 和 `out` 来读取和输出数据
+- `System `里另一个最常用的，无可替代的方法，取当前时间
+- `System `的文档[System (Java SE 11 & JDK 11 ) (oracle.com)](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/System.html)
+
+```java
+// 当前毫秒
+long startMS = System.currentTimeMillis();
+int counter = 0;
+for (int i = 0; i < 1000; i++) {
+    counter++;
+}
+System.out.println("counter = " + counter);
+long endMS = System.currentTimeMillis();
+System.out.println("程序执行使用了几个毫秒？" + (endMS - startMS));
+
+// 当前纳秒
+long startNS = System.nanoTime();
+counter = 0;
+for (int i = 0; i < 1000; i++) {
+    counter++;
+}
+long endNS = System.nanoTime();
+System.out.println("程序执行使用了几个纳秒？" + (endNS - startNS));
+```
+
+### 认识Math类
+
+https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Math.html
+
+> 查看Math类的源代码
+
+可以看到构造方法使用`private`进行修饰也就是不让实例化，没有成员变量，是一个工具类
+
+```java
+public final class Math {
+
+    /**
+     * Don't let anyone instantiate this class.	// 不要让任何人实例化此类
+     */
+    private Math() {}
+```
+
+> Math中的常用方法
+
+- `Math.random()`给我们产生的是一个`[0,1)`的随机数，类型是double
+
+- 想要一个`[10,99]`之间的随机数
+
+- `Math.random()*100`变成`[0.0,100.0)`不符合，我们乘90变成`[0.0,90.0)`,加10变成`[10,100)`即`[10,90]`
+
+- 取范围内随机整数数的公式：`[rangeStart, rangeEnd) = (int)Math.random()*(endNum - startNum)+ startNum;`
+
+  `[a,b]= Math.random()*(b-a+1)+a`
+
+```java
+// 我们调用的都是 Math 里的静态方法，Math的构造函数就是private的，意味着不能创建Math类的实例
+System.out.println(Math.random());
+```
+
+```java
+// 原来归根结底，Math的random是用的Random类来实现的。它在java.util包里
+Random random = new Random();
+for (int i = 0; i < 100; i++) {
+    // nextInt的返回值竟然有正数有负数哦！所以使用别人的类之前，一定要看看文档，避免出问题
+    System.out.println(random.nextInt());
+}
+```
+
+```java
+// 负数变为正数
+System.out.println(Math.abs(-9));
+
+// 舍小数
+System.out.println(Math.round(-9.2));
+```
+
+## 06_程序流程控制
+
+流程控制语句是用来控制程序中各语句执行顺序的语句，可以把语句组合成能完成一定功能的小逻辑模块。其流程控制方式采用结构化程序设计中规定的三种基本流程结构，即：
+
+- 顺序结构：程序从上到下逐行地执行，中间没有任何判断和跳转。
+- 分支结构：根据条件，选择性地执行某段代码。
+  - 有`if…else`和`switch-case`两种分支语句。
+- 循环结构：根据循环条件，重复性的执行某段代码。
+  - 有`while、do…while、for`三种循环语句。
+  - 注：`JDK1.5`提供了`foreach`循环，方便的遍历集合、数组元素。
+
+### 顺序结构
+
+![image-20210225133636262](images/image-20210225133636262.png) 
+
+Java中定义成员变量时采用合法的前向引用。如：
+
+```java
+public class Test{
+    int num1 = 12;
+    int num2 = num1 + 2;
+}
+```
+
+错误形式：
+
+```java
+public class Test{
+int num2 = num1 + 2；
+int num1 = 12;
+}
+```
+
+### 分支结构
+
+> `if`语句三种格式：
+
+![image-20210225134444435](images/image-20210225134444435.png) 第一种结构
+
+```java
+if(条件表达式){
+    执行代码块;
+}
+```
+
+![image-20210225134628506](images/image-20210225134628506.png) 第二种结构，通常叫做**二选一**
+
+```java
+if(条件表达式){
+    执行代码块1;
+}
+else{
+    执行代码块2;
+}
+```
+
+![image-20210225134712585](images/image-20210225134712585.png) 第三种结构，可以看作是**多选一**
+
+```java
+if(条件表达式1){
+    执行代码块1;
+}
+else if (条件表达式2){
+    执行代码块2;
+}
+……
+    else{
+        执行代码块n;
+    }
+```
+
+- 条件表达式必须是布尔表达式（关系表达式或逻辑表达式）、布尔变量
+- 语句块只有一条执行语句时，一对`{}`可以省略，但建议保留，阿里巴巴编程规约建议强制保留
+- `if-else`语句结构，根据需要可以嵌套使用
+- 当`if-else`结构是“多选一”时，最后的`else`是可选的，根据需要可以省略，条件都不满足才走`else`
+- **当多个条件是“互斥”（没有交集）关系时，条件判断语句及执行语句间顺序无所谓。当多个条件是“包含”（有交集）关系时，“小上大下 / 子上父下”**，此处的小指条件范围的大小。
+
+1、编写程序：由键盘输入三个整数分别存入变量num1、num2、num3，对它们进行排序(使用 if-else if-else),并且从小到大输出
+
+```java
+// 可以使用坐标轴的思考方式，先固定两个数，去移动第三个数的位置
+if (num1 >= num2) {
+    if (num3 >= num1) {
+        System.out.println("213");
+    } else if (num3 <= num2) {
+        System.out.println("321");
+    } else {
+        System.out.println("231");
+    }
+} else {
+    if (num3 >= num2) {
+        System.out.println("123");
+    } else if (num3 <= num1) {
+        System.out.println("312");
+    } else {
+        System.out.println("132");
+    }
+}
+```
+
+2、输出什么：`hello`
+
+```java
+int x = 4;
+int y = 1;
+if (x > 2) {
+    if (y > 2) {
+        System.out.println(x + y);
+    }
+    System.out.println("hello");
+} else {
+    System.out.println("x is " + x);
+}
+```
+
+3、输出什么：`c`
+
+```java
+boolean b = true;
+if(b = false) {		// 注意这里是赋值语句并不是条件判断语句
+    System.out.println("a");
+} else if(b) {
+    System.out.println("b");
+} else if(!b) {
+    System.out.println("c");
+} else {
+    System.out.println("d");
+}
+}
+```
+
+### 循环结构
 
