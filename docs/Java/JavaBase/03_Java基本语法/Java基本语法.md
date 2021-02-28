@@ -1178,7 +1178,7 @@ int num1 = 12;
 
 ### 分支结构
 
-> `if`语句三种格式：
+> 分支结构之`if`语句三种格式：
 
 ![image-20210225134444435](images/image-20210225134444435.png) 第一种结构
 
@@ -1273,6 +1273,164 @@ if(b = false) {		// 注意这里是赋值语句并不是条件判断语句
 }
 }
 ```
+
+> 分支结构之`switch-case`结构
+
+1、语法
+
+```java
+switch (表达式){
+    case目标值1，对应一个 if else(xxx) :
+        匹配后可以执行的语句
+    case目标值2，不可以与别的case 字句重复:
+        匹配后可以执行的语句
+    default(对应最后的else，可选)∶
+            default语句
+}
+```
+
+2、语句有关规则
+
+- `switch`语句适用于有固定多个目标值匹配，然后执行不同的逻辑的情况
+- `switch`(表达式)中表达式的值必须是下述几种类型之一：**byte，short， char，int，枚举 (jdk 5.0)，String (jdk 7.0)；**
+- `case`子句中的值必须是**常量**，不能是变量名或不确定的表达式值；也就是不能声明范围。
+- 同一个`switch`语句，所有`case`子句中的常量值互不相同；
+- `switch`里的`case`子句中也可以有任意合法的语句，比如`if-else , for`循环等
+- `break`语句用来在执行完一个`case`分支后使程序跳出`switch`语句块；如果没有`break`，程序会顺序执行到`switch`结尾
+- 通常情况下必须使用break语句显示的结束一个case子句，否则 `switch`语句会从第一个match 的`case`语句开始执行直到遇到break语句或者`switch`语句结束
+- `default`子句**是可选的且灵活**，如果所有的`case`语句都没有匹配上，才会执行`default `中的代码，一般放在末尾，不用加`break`语句。
+- `if`和`switch`语句很像，具体什么场景下，应用哪个语句呢？
+  - 如果判断的具体数值不多，而且符合`byte、short 、char、int、String`、枚举等几 种类型。虽然两个语句都可以使用，建议使用`switch`语句。因为**效率稍高**。比如说`a=0`的判断，`switch`和`if`在`cpu`上面的处理方式是不一样的，`switch`是在编译阶段将子函数的地址和判断条件绑定了，只要直接将a的直接映射到子函数地址去执行就可以了，但是`if`处理起来就不一样了。它首先要把a的值放到`cpu`的寄存器中，然后要把比较的值放到`cpu`的另一个寄存器中，然后做减法，然后根据计算结果跳转到子函数去执行，这样一来就要多出3步的操作了，如果逻辑判断多的话，那么将会比`switch`多处许多倍的操作，尽管寄存器操作的速度很快，但是对于当时的学习机来说，这点速度根本不够用啊。
+  - 其他情况：对区间判断，对结果为`boolean`类型判断，使用`if`，`if`的使用范围更广。 也就是说，**使用`switch-case`的，都可以改写为`if-else`**。反之不成立。
+- 总结：根据`switch`表达式中的值，以此匹配各个`case`中的常量，一旦匹配成功，则进入到相应`case`结构中调用其执行语句。当调用完执行语句之后，则仍然向下执行其他`case`结构中的执行语句，知道遇到`break`关键字或者此`switch-case`结构末尾为止结束。
+
+3、练习
+
+```java
+// 1.对学生成绩大于60分的，输出“合格”。低于60分的，输出“不合格”。
+// 这种方法对于if-else结构是非常方便编写的，对于switch-case结构略显复杂，在优化后采用除数的方式结合无break顺序执行的方式进行优化
+// 方式一:从case0一直到case100
+// 方式二:
+switch (score / 10) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+        System.out.println("不及格");
+        break;
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+        System.out.println("合格");
+        break;
+    default:
+        System.out.println("请合法输入");
+
+        // 方式三:最优策略
+        switch(score / 60){
+            case 0:
+                sout("不及格");
+                break;
+            case 1:
+                sout("及格");
+                break;
+        }
+```
+
+```java
+// 2.编写程序：从键盘上输入2019年的“month”和“day”，要求通过程序输出输入的日期为2019年的第几天。
+// 方法一: 
+int bigMonth = 31;
+int normal = 30;
+int small = 28;
+switch (month) {
+    case 1:
+        System.out.println(day);
+        break;
+    case 2:
+        System.out.println(bigMonth + day);
+        break;
+    case 3:
+        System.out.println(bigMonth + small + day);
+        break;
+    case 4:
+        System.out.println(bigMonth * 2 + small + day);
+        break;
+    case 5:
+        System.out.println(bigMonth * 2 + normal + small + day);
+        break;
+    case 6:
+        System.out.println(bigMonth * 3 + normal + small + day);
+        break;
+    case 7:
+        System.out.println(bigMonth * 3 + normal * 2 + small + day);
+        break;
+    case 8:
+        System.out.println(bigMonth * 3 + normal * 3 + small + day);
+        break;
+    case 9:
+        System.out.println(bigMonth * 3 + normal * 4 + small + day);
+        break;
+    case 10:
+        System.out.println(bigMonth * 3 + normal * 5 + small + day);
+        break;
+    case 11:
+        System.out.println(bigMonth * 4 + normal * 5 + small + day);
+        break;
+    case 12:
+        System.out.println(bigMonth * 3 + normal * 6 + small + day);
+        break;
+
+        // 方法二:最优策略,利用无break语句会顺序执行,并且越小的月份每次都会相加的思想
+        int bigMonth = 31;
+        int normal = 30;
+        int small = 28;
+        int sumDays = 0;
+        switch (month) {
+            case 12:
+                sumDays += normal;
+            case 11:
+                sumDays += bigMonth;
+            case 10:
+                sumDays += normal;
+            case 9:
+                sumDays += bigMonth;
+            case 8:
+                sumDays += bigMonth;
+            case 7:
+                sumDays += normal;
+            case 6:
+                sumDays += bigMonth;
+            case 5:
+                sumDays += normal;
+            case 4:
+                sumDays += bigMonth;
+            case 3:
+                sumDays += small;
+            case 2:
+                sumDays += bigMonth;
+            case 1:
+                sumDays += day;       
+```
+
+```java
+// 3.从键盘分别输入年、月、日，判断这一天是当年的第几天 注：判断一年是否是闰年的标准：1）可以被4整除，但不可被100整除或2）可以被400整除
+// 相对于上一题,重点是判断年份是否是闰年后对2月份天数的变更
+case 3:
+if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+    sumDays += 29;
+}else {
+    sumDays += small;
+}
+```
+
+
+
+
 
 ### 循环结构
 
