@@ -46,7 +46,7 @@
 - Java常用类
 - 枚举&注解
 - Java集合
-- 泛型
+- [泛型](docs/Java/JavaBase/11_泛型/泛型.md) 
 - IO流
 - 网络编程
 - Java反射机制
