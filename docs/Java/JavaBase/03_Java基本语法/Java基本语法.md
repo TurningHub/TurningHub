@@ -1264,22 +1264,25 @@ else if (条件表达式2){
 1、编写程序：由键盘输入三个整数分别存入变量num1、num2、num3，对它们进行排序(使用 if-else if-else),并且从小到大输出
 
 ```java
-// 可以使用坐标轴的思考方式，先固定两个数，去移动第三个数的位置
-if (num1 >= num2) {
-    if (num3 >= num1) {
-        System.out.println("213");
-    } else if (num3 <= num2) {
-        System.out.println("321");
+@Test
+public void test(){
+    // 可以使用坐标轴的思考方式，先固定两个数，去移动第三个数的位置
+    if (num1 >= num2) {
+        if (num3 >= num1) {
+            System.out.println("213");
+        } else if (num3 <= num2) {
+            System.out.println("321");
+        } else {
+            System.out.println("231");
+        }
     } else {
-        System.out.println("231");
-    }
-} else {
-    if (num3 >= num2) {
-        System.out.println("123");
-    } else if (num3 <= num1) {
-        System.out.println("312");
-    } else {
-        System.out.println("132");
+        if (num3 >= num2) {
+            System.out.println("123");
+        } else if (num3 <= num1) {
+            System.out.println("312");
+        } else {
+            System.out.println("132");
+        }
     }
 }
 ```
@@ -1302,16 +1305,18 @@ if (x > 2) {
 3、输出什么：`c`
 
 ```java
-boolean b = true;
-if(b = false) {		// 注意这里是赋值语句并不是条件判断语句
-    System.out.println("a");
-} else if(b) {
-    System.out.println("b");
-} else if(!b) {
-    System.out.println("c");
-} else {
-    System.out.println("d");
-}
+@Test
+public void test(){
+    boolean b = true;
+    if(b = false) {		// 注意这里是赋值语句并不是条件判断语句
+        System.out.println("a");
+    } else if(b) {
+        System.out.println("b");
+    } else if(!b) {
+        System.out.println("c");
+    } else {
+        System.out.println("d");
+    }
 }
 ```
 
@@ -1345,118 +1350,141 @@ switch (表达式){
   - 其他情况：对区间判断，对结果为`boolean`类型判断，使用`if`，`if`的使用范围更广。 也就是说，**使用`switch-case`的，都可以改写为`if-else`**。反之不成立。
 - 总结：根据`switch`表达式中的值，以此匹配各个`case`中的常量，一旦匹配成功，则进入到相应`case`结构中调用其执行语句。当调用完执行语句之后，则仍然向下执行其他`case`结构中的执行语句，知道遇到`break`关键字或者此`switch-case`结构末尾为止结束。
 
-3、练习
+3、练习一：
 
 ```java
 // 1.对学生成绩大于60分的，输出“合格”。低于60分的，输出“不合格”。
 // 这种方法对于if-else结构是非常方便编写的，对于switch-case结构略显复杂，在优化后采用除数的方式结合无break顺序执行的方式进行优化
 // 方式一:从case0一直到case100
 // 方式二:
-switch (score / 10) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-        System.out.println("不及格");
-        break;
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-        System.out.println("合格");
-        break;
-    default:
-        System.out.println("请合法输入");
-
-        // 方式三:最优策略
-        switch(score / 60){
-            case 0:
-                sout("不及格");
-                break;
-            case 1:
-                sout("及格");
-                break;
-        }
+@Test
+public void test1(){
+    switch (score / 10) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+            System.out.println("不及格");
+            break;
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+            System.out.println("合格");
+            break;
+        default:
+            System.out.println("请合法输入");
+    }
+}
 ```
+
+```java
+@Test
+public void test2(){
+    // 方式三:最优策略
+    switch(score / 60){
+        case 0:
+            sout("不及格");
+            break;
+        case 1:
+            sout("及格");
+            break;
+    }
+}
+```
+
+练习二：     
 
 ```java
 // 2.编写程序：从键盘上输入2019年的“month”和“day”，要求通过程序输出输入的日期为2019年的第几天。
 // 方法一: 
-int bigMonth = 31;
-int normal = 30;
-int small = 28;
-switch (month) {
-    case 1:
-        System.out.println(day);
-        break;
-    case 2:
-        System.out.println(bigMonth + day);
-        break;
-    case 3:
-        System.out.println(bigMonth + small + day);
-        break;
-    case 4:
-        System.out.println(bigMonth * 2 + small + day);
-        break;
-    case 5:
-        System.out.println(bigMonth * 2 + normal + small + day);
-        break;
-    case 6:
-        System.out.println(bigMonth * 3 + normal + small + day);
-        break;
-    case 7:
-        System.out.println(bigMonth * 3 + normal * 2 + small + day);
-        break;
-    case 8:
-        System.out.println(bigMonth * 3 + normal * 3 + small + day);
-        break;
-    case 9:
-        System.out.println(bigMonth * 3 + normal * 4 + small + day);
-        break;
-    case 10:
-        System.out.println(bigMonth * 3 + normal * 5 + small + day);
-        break;
-    case 11:
-        System.out.println(bigMonth * 4 + normal * 5 + small + day);
-        break;
-    case 12:
-        System.out.println(bigMonth * 3 + normal * 6 + small + day);
-        break;
-
-        // 方法二:最优策略,利用无break语句会顺序执行,并且越小的月份每次都会相加的思想
-        int bigMonth = 31;
-        int normal = 30;
-        int small = 28;
-        int sumDays = 0;
-        switch (month) {
-            case 12:
-                sumDays += normal;
-            case 11:
-                sumDays += bigMonth;
-            case 10:
-                sumDays += normal;
-            case 9:
-                sumDays += bigMonth;
-            case 8:
-                sumDays += bigMonth;
-            case 7:
-                sumDays += normal;
-            case 6:
-                sumDays += bigMonth;
-            case 5:
-                sumDays += normal;
-            case 4:
-                sumDays += bigMonth;
-            case 3:
-                sumDays += small;
-            case 2:
-                sumDays += bigMonth;
-            case 1:
-                sumDays += day;       
+@Test
+public void test1(){
+    int bigMonth = 31;
+    int normal = 30;
+    int small = 28;
+    switch (month) {
+        case 1:
+            System.out.println(day);
+            break;
+        case 2:
+            System.out.println(bigMonth + day);
+            break;
+        case 3:
+            System.out.println(bigMonth + small + day);
+            break;
+        case 4:
+            System.out.println(bigMonth * 2 + small + day);
+            break;
+        case 5:
+            System.out.println(bigMonth * 2 + normal + small + day);
+            break;
+        case 6:
+            System.out.println(bigMonth * 3 + normal + small + day);
+            break;
+        case 7:
+            System.out.println(bigMonth * 3 + normal * 2 + small + day);
+            break;
+        case 8:
+            System.out.println(bigMonth * 3 + normal * 3 + small + day);
+            break;
+        case 9:
+            System.out.println(bigMonth * 3 + normal * 4 + small + day);
+            break;
+        case 10:
+            System.out.println(bigMonth * 3 + normal * 5 + small + day);
+            break;
+        case 11:
+            System.out.println(bigMonth * 4 + normal * 5 + small + day);
+            break;
+        case 12:
+            System.out.println(bigMonth * 3 + normal * 6 + small + day);
+            break;
+    }
+}
 ```
+
+```java
+@Test
+public void test2(){
+    // 方法二:最优策略,利用无break语句会顺序执行,并且越小的月份每次都会相加的思想
+    int bigMonth = 31;
+    int normal = 30;
+    int small = 28;
+    int sumDays = 0;
+    switch (month) {
+        case 12:
+            sumDays += normal;
+        case 11:
+            sumDays += bigMonth;
+        case 10:
+            sumDays += normal;
+        case 9:
+            sumDays += bigMonth;
+        case 8:
+            sumDays += bigMonth;
+        case 7:
+            sumDays += normal;
+        case 6:
+            sumDays += bigMonth;
+        case 5:
+            sumDays += normal;
+        case 4:
+            sumDays += bigMonth;
+        case 3:
+            sumDays += small;
+        case 2:
+            sumDays += bigMonth;
+        case 1:
+            sumDays += day;       
+    }
+}
+```
+
+练习三：
 
 ```java
 // 3.从键盘分别输入年、月、日，判断这一天是当年的第几天 注：判断一年是否是闰年的标准：1）可以被4整除，但不可被100整除或2）可以被400整除
