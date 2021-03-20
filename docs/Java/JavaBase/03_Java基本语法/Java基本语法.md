@@ -1,3 +1,44 @@
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [Java基本语法](#java基本语法)
+  - [01_关键字和保留字](#01_关键字和保留字)
+    - [关键字(keyword)](#关键字keyword)
+    - [保留字(reserved word)](#保留字reserved-word)
+  - [02_标识符](#02_标识符)
+    - [什么是标识符(Identifier)](#什么是标识符identifier)
+    - [标识符的命名规范](#标识符的命名规范)
+  - [03_变量](#03_变量)
+    - [基本数据类型](#基本数据类型)
+    - [基本数据类型变量间转换](#基本数据类型变量间转换)
+    - [基本数据类型与String间转换](#基本数据类型与string间转换)
+    - [进制与进制间的转换](#进制与进制间的转换)
+  - [04_运算符](#04_运算符)
+    - [算术运算符](#算术运算符)
+    - [赋值运算符](#赋值运算符)
+    - [比较运算符](#比较运算符)
+    - [逻辑运算符](#逻辑运算符)
+    - [位运算符](#位运算符)
+    - [三元运算符](#三元运算符)
+    - [运算符的优先级](#运算符的优先级)
+    - [扩展思路](#扩展思路)
+  - [05_认识熟悉的陌生人](#05_认识熟悉的陌生人)
+    - [认识Scanner类](#认识scanner类)
+    - [认识main()方法](#认识main方法)
+    - [认识System类](#认识system类)
+    - [认识Math类](#认识math类)
+  - [06_程序流程控制](#06_程序流程控制)
+    - [顺序结构](#顺序结构)
+    - [分支结构](#分支结构)
+    - [循环结构](#循环结构)
+    - [嵌套循环](#嵌套循环)
+    - [break关键字和continue关键字](#break关键字和continue关键字)
+
+<!-- /code_chunk_output -->
+
+
 # Java基本语法
 
 ## 01_关键字和保留字
@@ -1171,8 +1212,8 @@ public class Test{
 
 ```java
 public class Test{
-int num2 = num1 + 2；
-int num1 = 12;
+    int num2 = num1 + 2;
+    int num1 = 12;
 }
 ```
 
@@ -1482,51 +1523,60 @@ for (①初始化部分; ②循环条件部分; ④迭代部分)｛
 练习一：以下程序执行结果
 
 ```java
-int num = 1;
-for (System.out.println("a"); num <= 3; System.out.println("c"), num++) {
-    System.out.println("b");
+@Test
+public void test1(){
+    int num = 1;
+    for (System.out.println("a"); num <= 3; System.out.println("c"), num++) {
+        System.out.println("b");
+    }
+    // a b c b c b c
 }
-// a b c b c b c
 ```
 
 练习二：遍历100内的偶数，输出所有偶数的和，输出偶数的个数
 
 ```java
-int sum = 0;
-int count = 0;
-for (int i = 0; i <= 100; i++) {
-    if (i % 2 == 0) {
-        System.out.print(i + ",");
-        sum += i;
-        count++;
+@Test
+public void test2(){
+    int sum = 0;
+    int count = 0;
+    for (int i = 0; i <= 100; i++) {
+        if (i % 2 == 0) {
+            System.out.print(i + ",");
+            sum += i;
+            count++;
+        }
     }
+    System.out.println("sum = " + sum);
+    System.out.println("count = " + count);
 }
-System.out.println("sum = " + sum);
-System.out.println("count = " + count);
 ```
 
 练习三：编写程序从1循环到150，并在每行打印一个值，另外在每个3的倍数行 上打印出“foo”,在每个5的倍数行上打印“biz”,在每个7的倍数行上打印 输出“baz” 。`if-else`结构不能用的原因是多选一，不能满足这种21既是3的倍数又是7的倍数。
 
 ```java
-for (int i = 0; i <= 150; i++) {
-    System.out.print("第" + i + "行" + " ");
-    if (i % 3 == 0) {
-        System.out.print("foo"+" ");
+@Test
+public void test3(){
+    for (int i = 0; i <= 150; i++) {
+        System.out.print("第" + i + "行" + " ");
+        if (i % 3 == 0) {
+            System.out.print("foo"+" ");
+        }
+        if (i % 5 == 0) {
+            System.out.print("biz"+" ");
+        }
+        if (i % 7 == 0) {
+            System.out.print("baz"+" ");
+        }
+        System.out.println();
     }
-    if (i % 5 == 0) {
-        System.out.print("biz"+" ");
-    }
-    if (i % 7 == 0) {
-        System.out.print("baz"+" ");
-    }
-    System.out.println();
 }
 ```
 
 练习四：题目：输入两个正整数m和n，求其最大公约数和最小公倍数。 比如：12和20的最大公约数是4，最小公倍数是60。 说明：break关键字的使用
 
-- [ ] 最大公约数：约数就是能够被12除尽的数，有1，2，3，4，6，12
-- [ ] 最小公倍数：倍数就是除它能除尽的，12，24，36...
+- [ ] 最大公约数：约数就是能够被12除尽的数，有1，2，3，4，6，12。最大公约数就是两个数最大的约数
+- [ ] 最小公倍数：倍数就是除它能除尽的，12，24，36...。最小公倍数就是两个数最小的倍数
 
 求最大公约数思路：公约数肯定是至少小于等于这两个数的，并且小于Min(m,n)的
 
@@ -1539,19 +1589,27 @@ for (int i = 0; i <= 150; i++) {
 2. 从较小值的最大数开始遍历，也就是获取循环变量的取值范围
 
 ```java
-int min = Math.min(m, n);
-for (int i = min; i >= 1; i--) {
-    if (m % i == 0 && n % i == 0) {
-        System.out.println("最大公约数" + i);
-        break;
-    }
-}
+@Test
+public void test4(){
+    Scanner input = new Scanner(System.in);
+    System.out.println("请输入第一个正整数：");
+    int m = input.nextInt();
+    System.out.println("请输入第二个正整数：");
+    int n = input.nextInt();
 
-int max = Math.max(m, n);
-for (int i = max; i < m * n; i++) {
-    if (m % i == 0 && n % i == 0) {
-        System.out.println("最小公倍数" + i);
-        break;
+    int min = Math.min(m, n);
+    for (int i = min; i >= 1; i--) {
+        if (m % i == 0 && n % i == 0) {
+            System.out.println("最大公约数" + i);
+            break;
+        }
+    }
+    int max = Math.max(m, n);
+    for (int i = max; i < m * n; i++) {
+        if (m % i == 0 && n % i == 0) {
+            System.out.println("最小公倍数" + i);
+            break;
+        }
     }
 }
 ```
@@ -1561,11 +1619,11 @@ for (int i = max; i < m * n; i++) {
 1、语法格式
 
 ```java
-①初始化部分
-    while(②循环条件部分)｛
+    ①初始化部分
+    while(②循环条件部分){
         ③循环体部分;
-		④迭代部分;
-}
+        ④迭代部分;
+    }
 ```
 
 2、执行过程
@@ -1582,12 +1640,44 @@ for (int i = max; i < m * n; i++) {
 练习一：遍历100以内所有的偶数
 
 ```java
-int i = 1;
-while (i <= 100) {
-    if (i % 2 == 0) {
-        System.out.println(i);
+@Test
+public void test1() {
+    int i = 1;
+    while (i <= 100) {
+        if (i % 2 == 0) {
+            System.out.println(i);
+        }
+        i++;
     }
-    i++;
+}
+```
+
+练习二：从键盘读入个数不确定的整数，并判断读入的正数和负数的个数，输入为0时结束程序。
+
+- **最简单“无限” 循环格式：while(true) , for(;;),无限循环存在的原因是并不知道循环多少次，需要根据循环体内部某些条件，来控制循环的结束。**
+- 结束循环的方式
+  - 方式一：循环条件的部分返回了false
+  - 方式二：在循环体中，执行break
+
+```java
+@Test
+public void test2() {
+    Scanner scanner = new Scanner(System.in);
+    int positiveNumber = 0;
+    int negativeNumber = 0;
+    while (true) {
+        System.out.println("请输入整数:");
+        int i = scanner.nextInt();
+        if (i > 0) {
+            positiveNumber++;
+        } else if (i < 0) {
+            negativeNumber++;
+        } else {
+            break;
+        }
+    }
+    System.out.println("positiveNumber = " + positiveNumber);
+    System.out.println("negativeNumber = " + negativeNumber);
 }
 ```
 
@@ -1615,21 +1705,18 @@ do{
 4、测试使用
 
 ```java
-int num = 1;
-do {
-    if (num % 2 == 0) {
-        System.out.println(num);
-    }
-    num++;
-} while (num <= 100);
+@Test
+public void test1() {
+    // 遍历100以内的偶数
+    int num = 1;
+    do {
+        if (num % 2 == 0) {
+            System.out.println(num);
+        }
+        num++;
+    } while (num <= 100);
+}
 ```
-
-练习一：从键盘读入个数不确定的整数，并判断读入的正数和负数的个数，输入为0时结束程序。
-
-- **最简单“无限” 循环格式：while(true) , for(;;),无限循环存在的原因是并不知道循环多少次，需要根据循环体内部某些条件，来控制循环的结束。**
-- 结束循环的方式
-  - 方式一：循环条件的部分返回了false
-  - 方式二：在循环体中，执行break
 
 ### 嵌套循环
 
@@ -1640,44 +1727,198 @@ do {
 - 实质上，嵌套循环就是把内层循环当成外层循环的循环体。当只有内层循环的循环条件为false时，才会完全跳出内层循环，才可结束外层的当次循环，开始下一次的循环。
 - 设外层循环次数为m次，内层为n次，则内层循环体实际上需要执行m*n次。
 
+练习一：打印
+
+```
+*
+**
+***
+****
+*****
+```
+
+```java
+@Test
+public void test1() {
+    for (int i = 0; i <= 5; i++) {
+        for (int j = 0; j < i; j++) {
+            System.out.print("*");
+        }
+        System.out.println();
+    }
+}
+```
+
+练习二：打印
+
+```java
+*****
+****
+***
+**
+*
+```
+
+```java
+public void test2() {
+    for (int i = 0; i <= 5; i++) {
+        for (int j = 0; j < 5 - i; j++) {
+            System.out.print("*");
+        }
+        System.out.println();
+    }
+}
+```
+
+练习三：九九乘法表
+
+```java
+@Test
+public void test3() {
+    for (int i = 1; i < 10; i++) {
+        for (int j = 1; j <= i; j++) {
+            System.out.print(i + "*" + j + "=" + (i * j) + " ");
+        }
+        System.out.println();
+    }
+}
+```
+
+练习四：100以内所有质数
+
+什么是质数：质数也叫做素质，只能被1和他本身整除的自然数（非负整数）。例如7只能被1和自身整除。在密码学和数学上有广泛的使用，因为不可再分了。
+
+```java
+@Test
+public void test1() {
+    // 标识n是否被j除尽过
+    boolean isFlag;
+    // 遍历100以内的自然数（相当于从键盘输入的n）
+    for (int n = 2; n <= 100; n++) {
+        isFlag = true;
+        // 拿到2到n-1的数
+        for (int j = 2; j <= n - 1; j++) {
+            // 如果 这期间的数都无法整除n则证明n是质数。注意，一次无法整数不能说明情况，得这循环之间所有的数
+            if (n % j == 0) {
+                isFlag = false;
+                // 一旦遇到不是质数,就跳出本此循环,效率提升10倍左右
+                break;
+            }
+        }
+        if (isFlag) {
+            System.out.println(n);
+        }
+    }
+}
+```
+
+优化：不用去整数2到n-1
+
+![image-20210320154600828](images/image-20210320154600828.png) 
+
+```java
+@Test
+public void test2() {
+    // 标识n是否被j除尽过
+    boolean isFlag;
+    // 遍历100以内的自然数（相当于从键盘输入的n）
+    for (int n = 2; n <= 100; n++) {
+        isFlag = true;
+        // 优化二：开方，对本身是质数的数缩减了
+        for (int j = 2; j <= Math.sqrt(n); j++) {
+            // 如果 这期间的数都无法整除n则证明n是质数。注意，一次无法整数不能说明情况，得这循环之间所有的数
+            if (n % j == 0) {
+                isFlag = false;
+                break;
+            }
+        }
+        if (isFlag) {
+            System.out.println(n);
+        }
+    }
+}
+```
+
 ### break关键字和continue关键字
 
-- break语句结束循环
+- **break语句结束当前循环**
 
   - break语句可以结束循环
   - 在求整除程序中使用break提前结束循环
   - IDEA中点击break可以看到for会高亮，得出结束的是哪次循环
 
   ```java
-  int divisor = 3;
-  int count = 0;
-  int breakCount = 10;
-  for (int i = 0; i < 100; i++) {
-      if (i % divisor == 0) {
-          System.out.println(i + "可以整除" + divisor + "。商为" + i / divisor);
-          count++;
-      }
-      if (count >= breakCount) {
-          System.out.println("已经找到" + breakCount + "个数字，跳出当前循环");
-          break;
+  @Test
+  public void test1() {
+      int divisor = 3;
+      int count = 0;
+      int breakCount = 10;
+      for (int i = 0; i < 100; i++) {
+          if (i % divisor == 0) {
+              System.out.println(i + "可以整除" + divisor + "。商为" + i / divisor);
+              count++;
+          }
+          if (count >= breakCount) {
+              System.out.println("已经找到" + breakCount + "个数字，跳出当前循环");
+              break;
+          }
       }
   }
   ```
 
-- continue语句跳过不符合条件的循环
+- **continue语句结束当此循环**即跳过不符合条件的循环
 
   ```java
-  int divisor = 3;
-  for (int i = 0; i < 100; i++) {
-      if (i % divisor == 0 && i % 5 == 0) {
-          System.out.println("i能同时被3和5整除,跳过" + i);
-          continue;
+  @Test
+  public void test2() {
+      int divisor = 3;
+      for (int i = 0; i < 100; i++) {
+          if (i % divisor == 0 && i % 5 == 0) {
+              System.out.println("i能同时被3和5整除,跳过" + i);
+              continue;
+          }
+          if (i % divisor == 0) {
+              System.out.println(i + "可以整除" + divisor + "。商为" + i / divisor);
+          }
       }
-      if (i % divisor == 0) {
-          System.out.println(i + "可以整除" + divisor + "。商为" + i / divisor);
+  }
+  ```
+  
+- 带标签的break和continue的使用
+
+  ```java
+  @Test
+  public void test1(){
+      label:for(int i = 0;i<10;i++){
+          for(j=0;j<10;j++){
+              if(i*j==9){
+                  // break label; 结束指定标识的一层循环结构
+                  // continue label; 结束指定标识的一层循环结构当此循环
+              }
+          }
       }
   }
   ```
 
+  继续优化上面寻找质数的案例，用带标签的优化：
 
-### 
+  ```java
+  @Test
+  public void test2() {
+      // 遍历100以内的自然数（相当于从键盘输入的n）
+      label:for (int n = 2; n <= 100; n++) {
+          // 优化二：开方，对本身是质数的数缩减了
+          for (int j = 2; j <= Math.sqrt(n); j++) {
+              // 如果 这期间的数都无法整除n则证明n是质数。注意，一次无法整数不能说明情况，得这循环之间所有的数
+              if (n % j == 0) {
+                  continue label;
+              }
+          }
+      }
+  }
+  ```
+
+  
+
+
+
