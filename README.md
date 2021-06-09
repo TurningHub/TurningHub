@@ -38,7 +38,7 @@
 -  [Java基本语法](docs/Java/JavaBase/03_Java基本语法/Java基本语法.md) 
 - [数组](docs/Java/JavaBase/04_数组/数组.md) 
 - [面向对象编程](docs/Java/JavaBase/05_面向对象编程/面向对象编程.md) 
-- 异常处理
+- [异常处理](docs/Java/JavaBase/06_异常处理/异常处理.md) 
 
 > 高级编程
 
