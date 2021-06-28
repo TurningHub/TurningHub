@@ -44,7 +44,7 @@
 
 - [多线程](docs/Java/JavaBase/07-多线程/多线程.md) 
 -  [Java常用类](docs/Java/JavaBase/08-Java常用类/Java常用类.md) 
-- 枚举&注解
+-  [枚举类与注解](docs/Java/JavaBase/09-枚举类与注解/枚举类与注解.md) 
 - Java集合
 - [泛型](docs/Java/JavaBase/11_泛型/泛型.md) 
 - IO流
