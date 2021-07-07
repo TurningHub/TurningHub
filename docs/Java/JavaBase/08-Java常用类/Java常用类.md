@@ -306,7 +306,7 @@ System.out.println("s = " + s);	//宋嘉诚
 String s1 = new String(bytes); // 不指定字符集,用默认的UTF-8就会乱码 s = ��[�V	��
 ```
 
-### String常见面试题（todo）
+### String常见面试题（TODO）
 
 - 模拟一个trim方法，去除字符串两端的空格
 - 将一个字符串进行反转。将字符串中指定部分进行反转。比如“abcdefg”反 转为”abfedcg”
